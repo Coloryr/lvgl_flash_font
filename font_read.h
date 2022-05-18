@@ -1,0 +1,29 @@
+#ifndef LVGL_FONT_READ_H
+#define LVGL_FONT_READ_H
+
+#include "lvgl.h"
+#include "font_load.h"
+#include "fatfs.h"
+#include "font_config.h"
+
+typedef struct {
+    my_font_data *(*get_font_data)(lv_font_t *);
+
+    font_load_fp *(*start_read)(my_font_data *);
+
+    void (*read)(font_load_fp *, void *, uint16_t);
+
+    void (*stop_read)(font_load_fp *);
+
+    void (*error)(const char *);
+
+    void (*set_pos)(font_load_fp *, uint32_t);
+
+    void (*add_pos)(font_load_fp *, uint32_t);
+} font_load_api_;
+
+extern font_load_api_ font_load_api;
+
+void init_fp();
+
+#endif //LVGL_FONT_READ_H
