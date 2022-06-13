@@ -46,7 +46,7 @@ static int32_t font_kern_pair_8_compare(const void *ref, const void *element);
 
 static int8_t font_get_kern_value(const lv_font_t *font, uint32_t gid_left, uint32_t gid_right);
 
-void font_get_glyph_dsc(const lv_font_t *font, uint32_t gid, lv_font_fmt_txt_glyph_dsc_t* gdsc) {
+void font_get_glyph_dsc(const lv_font_t *font, uint32_t gid, lv_font_fmt_txt_glyph_dsc_t *gdsc) {
     my_font_data *font_data = font_load_api.get_font_data((lv_font_t *) font);
     font_load_fp *head = font_load_api.start_read(font_data);
 
@@ -213,7 +213,7 @@ void font_load(my_font_data *font) {
     font->font.subpx = font->header_bin.subpixels_mode;
     font->font.underline_position = font->header_bin.underline_position;
     font->font.underline_thickness = font->header_bin.underline_thickness;
-    font->font.fallback = &lv_font_montserrat_16;
+    font->font.fallback = LV_FONT_DEFAULT;
 
     font->font.dsc = &font->dsc;
     lv_font_fmt_txt_dsc_t *font_dsc = (lv_font_fmt_txt_dsc_t *) font->font.dsc;
@@ -324,6 +324,10 @@ static bool font_load_cmaps_tables(font_load_fp *head, lv_font_fmt_txt_dsc_t *fo
             case LV_FONT_FMT_TXT_CMAP_SPARSE_TINY: {
                 uint32_t list_size = sizeof(uint16_t) * cmap_table[i].data_entries_count;
                 uint16_t *unicode_list = (uint16_t *) malloc(list_size);
+
+                if(unicode_list == NULL){
+                    while (1);
+                }
 
                 cmap->unicode_list = unicode_list;
                 cmap->list_length = cmap_table[i].data_entries_count;

@@ -31,6 +31,7 @@ font_load_api_ font_load_api = {
 #if USE_TF == 0
 #define WORK_LENGTH 16
 
+uint8_t count = 0;
 font_load_fp font_fp[WORK_LENGTH];
 
 void set_pos(font_load_fp *fp, uint32_t pos) {
@@ -47,6 +48,7 @@ font_load_fp *start_read(my_font_data *font_data) {
             font_fp[i].use = 1;
             font_fp[i].local = font_data->file_local;
             font_fp[i].pos = 0;
+            count++;
             return &font_fp[i];
         }
     }
@@ -57,6 +59,7 @@ void stop_read(font_load_fp *fp) {
     fp->use = 0;
     fp->pos = 0;
     fp->local = 0;
+    count--;
 }
 
 void read(font_load_fp *fp, void *data, uint16_t size) {
