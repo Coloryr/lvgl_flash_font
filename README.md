@@ -23,3 +23,11 @@ void show_init(void)
     lv_obj_set_style_text_font(label1, &font_16.font, 0);
 }
 ```
+
+## Make a font
+1. Install nodejs
+2. Prepare `.fft`
+3. Run in Cmd
+```
+npx lv_font_conv --font .\xxx.ttf -r 0x00-0xFFFF --size 16 --format bin --no-compress --bpp 2 -o fz16_no.font
+```
