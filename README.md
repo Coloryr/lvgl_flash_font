@@ -1,5 +1,5 @@
 # Lvgl flash font
-let lvgl font read in `flash` or `extend flash` or `tf card` and use less memory;
+let lvgl font read in `extend flash` or `tf card` and use less memory;
 
 ## Usage
 1. copy all code to your project
